@@ -2,15 +2,13 @@
   <aside class="sidebar">
     <div class="profile-section">
       <div class="avatar">NBH</div>
-      <h2>Nguyễn Bảo Hân</h2>
-      <p>TTS Technical Consultant</p>
-      <span class="badge">HUIT - K14</span>
+      <h2>{{ userData.data.fullName }}</h2>
+      <p>{{ userData.data.position }}</p>
+      <span class="badge">{{ userData.data.id }}</span>
     </div>
     <nav class="nav-menu">
-      <a href="#" class="active"> Tổng quan</a>
-      <a href="#"> Báo cáo tiến độ</a>
-      <a href="#"> Dự án thực tế</a>
-      <a href="#"> Cài đặt</a>
+      <a href="#" class="active"><span></span> Tổng quan</a>
+      <a href="#"><span></span> Báo cáo tiến độ</a>
     </nav>
   </aside>
 
@@ -19,49 +17,39 @@
       <h1>Dashboard Thực Tập Sinh</h1>
       <div class="user-actions">
         <button class="btn-outline"> Thông báo</button>
-        <button class="btn-primary"> Báo cáo tuần 1</button>
+        <button 
+          class="btn-primary" 
+          [style.backgroundColor]="buttonColor"
+          (click)="sendReport()">
+           Gửi báo cáo
+        </button>
       </div>
     </header>
 
-    <section class="stats-grid">
-      <div class="stat-card">
-        <h3>Kỹ năng & Framework</h3>
-        <div class="tags">
-          <span class="tag">Angular</span>
-          <span class="tag">.NET (C#)</span>
-          <span class="tag">Java (Spring Boot)</span>
-          <span class="tag">Flutter</span>
-        </div>
-      </div>
-      <div class="stat-card">
-        <h3>Cơ sở dữ liệu & AI</h3>
-        <div class="tags">
-          <span class="tag">SQL Server</span>
-          <span class="tag">Oracle</span>
-          <span class="tag">YOLOv8 / YOLO11</span>
-        </div>
-      </div>
-    </section>
+    <div class="grid-container">
+      <section class="stat-card">
+        <h2>Thông tin cá nhân</h2>
+        <div class="info-row"><span class="label">Mã số:</span> <span class="value">{{ userData.data.id }}</span></div>
+        <div class="info-row"><span class="label">Họ và tên:</span> <span class="value">{{ userData.data.fullName }}</span></div>
+        <div class="info-row"><span class="label">Vị trí:</span> <span class="value">{{ userData.data.position }}</span></div>
+      </section>
 
-    <section class="projects-section">
-      <h2>Dự án nổi bật</h2>
-      <div class="projects-grid">
-        <div class="project-card">
-          <div class="project-icon"></div>
-          <h4>SmartKidManagement</h4>
-          <p>Hệ thống quản lý học sinh và phụ huynh tích hợp cơ sở dữ liệu bảo mật.</p>
+      <section class="stat-card">
+        <h2>Mục tiêu Tuần 1</h2>
+        <div class="task-list">
+          @for (task of taskList.data; track task.id) {
+            <div class="task-item">
+              <div class="task-info">
+                <h4>{{ task.title }}</h4>
+                <span class="task-time">{{ task.time }}</span>
+              </div>
+              <span class="status-badge" [class]="task.status === 'Hoàn thành' ? 'done' : (task.status === 'Đang làm' ? 'doing' : 'todo')">
+                {{ task.status }}
+              </span>
+            </div>
+          }
         </div>
-        <div class="project-card">
-          <div class="project-icon"></div>
-          <h4>PhimHayZ</h4>
-          <p>Website xem phim trực tuyến với giao diện thân thiện và backend tối ưu.</p>
-        </div>
-        <div class="project-card">
-          <div class="project-icon"></div>
-          <h4>License Plate Recognition</h4>
-          <p>Ứng dụng Deep Learning nhận diện biển số xe tự động.</p>
-        </div>
-      </div>
-    </section>
+      </section>
+    </div>
   </main>
 </div>
